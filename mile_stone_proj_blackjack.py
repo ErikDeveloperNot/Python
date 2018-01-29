@@ -152,7 +152,12 @@ class Player(object):
             elif choice == '5':
                 if self.canDoubleDown():
                     self.split = True
-                    splitPlayer = SplitPlayer(self.name, self.currentBet, self, self.hand[:2])
+                    cardLeft = self.hand[0]
+                    cardRight = self.hand[1]
+                    self.resetHand()
+                    self.addCard(cardLeft)
+                    self.addCard(deck.draw())
+                    splitPlayer = SplitPlayer(self.name, self.currentBet, self, [cardRight, deck.draw()])
                     players.insert(players.index(self)+1, splitPlayer)
                 else:
                     print 'Not enough in your bankroll...'
